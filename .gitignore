@@ -6,3 +6,6 @@ dist
 xmcp-env.d.ts
 /.idea
 /scratch
+docs/changelog.md
+/roadmap
+/site

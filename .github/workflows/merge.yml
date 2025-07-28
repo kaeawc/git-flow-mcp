@@ -1,0 +1,88 @@
+name: "On Merge"
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  checks: write
+  security-events: write
+  pull-requests: write
+  contents: read
+  packages: write
+
+jobs:
+  validate-shell-scripts:
+    name: "Validate Shell Scripts"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Git Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Run ShellCheck"
+        shell: "bash"
+        run: |
+          scripts/shellcheck/validate_shell_scripts.sh
+
+  build-and-test:
+    name: "Build and Test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Git Checkout"
+        uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-npm-git-flow
+
+      - name: "Run Lint"
+        run: npm run lint
+
+      - name: "Run Tests"
+        run: npm run test
+
+  deploy-docs:
+    name: "Deploy Documentation"
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: "Git Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for git-revision-date-localized plugin
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Setup Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: "Install uv"
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: "Install MkDocs and dependencies"
+        working-directory: scripts/github
+        run: uv sync
+
+      - name: "Build documentation"
+        run: scripts/github/deploy_pages.py build
+
+      - name: "Setup Pages"
+        uses: actions/configure-pages@v5
+
+      - name: "Upload artifact"
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './site'
+
+      - name: "Deploy to GitHub Pages"
+        id: deployment
+        uses: actions/deploy-pages@v4

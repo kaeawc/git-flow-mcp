@@ -1,0 +1,130 @@
+name: Bug Report
+description: Create a bug report
+labels: [ "bug" ]
+assignees: [ ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please follow the instructions below.
+
+        If you have a usage or debugging question, please use the [Q&A feature of the repo's Discussions section](https://github.com/ZacSweers/metro/discussions/new?category=q-a) instead of creating an issue.
+
+        Provide a brief summary of the issue in the title above
+        
+        When submitting, please use conventional **markdown formatting** and **syntax highlighting** for readability.
+
+  - type: textarea
+    id: overview
+    attributes:
+      label: Overview
+      description: Brief description of the bug you encountered.
+      placeholder: What is the high-level issue? What crashed or behaved unexpectedly?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: What is the severity/priority level of this bug?
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+
+  - type: input
+    id: related_feature
+    attributes:
+      label: Related Feature
+      description: Which feature or component is this bug related to?
+      placeholder: e.g. "git workflow tools", "MCP server", "tool discovery"
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        Provide numbered steps to reproduce the issue.
+        
+        Ideally, fork this repo and create a test case in integration or compiler unit tests that reproduces this and then link that here.
+        
+        A minimally reproducible project is also good, either as a link or attached here.
+        
+        If you cannot supply a repro case, it may be difficult or impossible to help. In this event, be as detailed as you can.
+        
+        Please include any relevant stack traces as you can (formatted as code blocks).
+      placeholder: |
+        1. First step
+        2. Second step
+        3. Third step
+        4. Observe the issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Behavior
+      description: What should have happened according to documentation or expected implementation?
+      placeholder: Describe the expected result or behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened that indicates the bug?
+      placeholder: Describe what actually occurred, including error messages, stack traces, or unexpected output.
+    validations:
+      required: true
+
+  - type: input
+    id: metro-version
+    attributes:
+      label: Metro version
+      description: What version of Metro are you using? (e.g. `0.1.0`)
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Environment & Context
+      description: |
+        Include as many relevant details about the environment as you can. Which platform, is it a compiler or runtime bug, etc.
+      placeholder: |
+        - OS: macOS 14.0
+        - Node version: 18.17.0
+        - Platform: darwin
+        - Runtime environment: development/production
+        - Other relevant details
+    validations:
+      required: false
+
+  - type: textarea
+    id: attempted_fixes
+    attributes:
+      label: Attempted Fixes
+      description: What have you tried to fix or work around this issue?
+      placeholder: |
+        - Tried approach 1: result
+        - Tried approach 2: result
+        - Considered solution 3 but didn't attempt because...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_info
+    attributes:
+      label: Additional Information
+      description: Any other relevant information, logs, screenshots, or context.
+      placeholder: Include any other observed information that might be helpful.
+    validations:
+      required: false

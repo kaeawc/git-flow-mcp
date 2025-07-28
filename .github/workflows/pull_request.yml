@@ -1,0 +1,41 @@
+name: "Pull Request"
+
+on:
+  pull_request:
+    branches:
+      - "**"
+
+permissions:
+  checks: write
+  security-events: write
+  pull-requests: write
+  contents: read
+  packages: write
+
+jobs:
+  validate-shell-scripts:
+    name: "Validate Shell Scripts"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Git Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Run ShellCheck"
+        shell: "bash"
+        run: |
+          scripts/shellcheck/validate_shell_scripts.sh
+
+  build-and-test:
+    name: "Build and Test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Git Checkout"
+        uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup-npm-git-flow
+
+      - name: "Run Lint"
+        run: npm run lint
+
+      - name: "Run Tests"
+        run: npm run test

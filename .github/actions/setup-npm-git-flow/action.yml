@@ -1,0 +1,38 @@
+#file: noinspection YAMLSchemaValidation
+name: "npm-git-flow"
+description: ""
+inputs:
+  shell:
+    description: "The shell to use for any steps that use shells"
+    default: "bash"
+    required: "true"
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Setup Node.js"
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+        cache: "npm"
+
+    - name: "Install ripgrep"
+      shell: ${{ inputs.shell }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ripgrep
+
+    - name: "Install dependencies"
+      shell: ${{ inputs.shell }}
+      run: |
+        npm ci
+
+    - name: "Build"
+      shell: ${{ inputs.shell }}
+      run: |
+        npm run build
+
+    - name: "Globally Install"
+      shell: ${{ inputs.shell }}
+      run: |
+        npm install -g .

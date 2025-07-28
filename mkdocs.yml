@@ -1,0 +1,79 @@
+# pip3 install mkdocs mkdocs-material
+# mkdocs serve
+# mkdocs gh-deploy
+
+site_name: Git Flow MCP
+repo_name: Git Flow MCP
+repo_url: https://github.com/kaeawc/git-flow-mcp
+site_description: "Making centralized git feel decentralized"
+site_author: Jason Pearson
+remote_branch: gh-pages
+use_directory_urls: true
+
+copyright: 'Copyright &copy; 2025 Jason Pearson'
+
+plugins:
+  - search
+  - mermaid2:
+      version: 10.0.2
+
+theme:
+  name: 'material'
+  favicon: img/favicon.ico
+  logo: img/auto_mobile_sticker_splash.png
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: 'white'
+      accent: 'green'
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: 'black'
+      accent: 'green'
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: 'Inter'
+    code: 'Fira Code'
+  features:
+    - content.code.copy
+    - content.code.select
+
+markdown_extensions:
+  - smarty
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - pymdownx.emoji
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - admonition
+  - attr_list
+  - md_in_html
+
+nav:
+  - 'Overview': index.md
+  - 'Contributing':
+      - 'How': contributing/index.md
+      - 'Local Development': contributing/local-development.md
+      - 'GitHub Discussions': https://github.com/kaeawc/git-flow-mcp/discussions
+  - 'Change Log': changelog.md

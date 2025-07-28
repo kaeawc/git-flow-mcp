@@ -1,0 +1,120 @@
+name: Feature Request
+description: Create a feature request
+labels: [ "feature" ]
+assignees: [ ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please follow the instructions below.
+
+        If you have a usage or debugging question, please use the [Q&A feature of the repo's Discussions section](https://github.com/ZacSweers/metro/discussions/new?category=q-a) instead of creating an issue.
+
+        Provide a brief summary of the issue in the title above
+        
+        When submitting, please use conventional **markdown formatting** and **syntax highlighting** for readability.
+  
+  - type: textarea
+    id: overview
+    attributes:
+      label: Overview
+      description: Describe the goal and purpose of this feature request.
+      placeholder: What problem does this feature solve? What is the desired outcome?
+    validations:
+      required: true
+
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Requirements
+      description: List the key requirements needed to build this feature.
+      placeholder: |
+        - Requirement 1: Description
+        - Requirement 2: Description
+        - Requirement 3: Description
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: What is the priority level of this feature?
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+
+  - type: textarea
+    id: key_features
+    attributes:
+      label: Key Features
+      description: List the key features or concepts that should be implemented.
+      placeholder: |
+        - Feature 1: Description
+        - Feature 2: Description
+    validations:
+      required: true
+
+  - type: textarea
+    id: system_design
+    attributes:
+      label: System Design / Control Flow
+      description: Describe the system design or provide a control flow diagram (mermaid charts welcome).
+      placeholder: |
+        Describe the high-level architecture or flow:
+        
+        ```mermaid
+        flowchart TD
+          A[User/Client] --> B[Feature Interface]
+          B --> C{Decision}
+          C -->|✅| D[Core Logic]
+          C -->|❌| E[Alternative Path]
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: usage_examples
+    attributes:
+      label: Usage Examples
+      description: Provide examples of how this feature would be used.
+      placeholder: |
+        ```typescript
+        // Example usage code
+        const result = await newFeature.execute();
+        ```
+    validations:
+      required: false
+
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Known Issues / Limitations
+      description: Are there any known limitations or potential issues with this feature?
+      placeholder: List any constraints, edge cases, or potential problems.
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: List any dependencies on other features, tools, or external systems.
+      placeholder: |
+        - Depends on Feature X being completed, refer to active GitHub issues
+        - Requires integration with System Y
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Add any other context, mockups, or examples that would help implement this feature.
+      placeholder: Links to documentation, related issues, or reference implementations.
+    validations:
+      required: false
