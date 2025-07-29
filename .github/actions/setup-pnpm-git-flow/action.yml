@@ -1,5 +1,5 @@
 #file: noinspection YAMLSchemaValidation
-name: "npm-git-flow"
+name: "pnpm-git-flow"
 description: ""
 inputs:
   shell:

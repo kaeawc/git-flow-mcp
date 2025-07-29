@@ -32,7 +32,7 @@ jobs:
       - name: "Git Checkout"
         uses: actions/checkout@v4
 
-      - uses: ./.github/actions/setup-npm-git-flow
+      - uses: ./.github/actions/setup-pnpm-git-flow
 
       - name: "Run Lint"
         run: pnpm lint
