@@ -35,10 +35,10 @@ jobs:
       - uses: ./.github/actions/setup-npm-git-flow
 
       - name: "Run Lint"
-        run: npm run lint
+        run: pnpm lint
 
       - name: "Run Tests"
-        run: npm run test
+        run: pnpm test
 
   deploy-docs:
     name: "Deploy Documentation"

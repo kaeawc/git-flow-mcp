@@ -14,7 +14,7 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: "20"
-        cache: "npm"
+        cache: "pnpm"
 
     - name: "Install ripgrep"
       shell: ${{ inputs.shell }}
@@ -25,14 +25,14 @@ runs:
     - name: "Install dependencies"
       shell: ${{ inputs.shell }}
       run: |
-        npm ci
+        pnpm install --frozen-lockfile
 
     - name: "Build"
       shell: ${{ inputs.shell }}
       run: |
-        npm run build
+        pnpm build
 
     - name: "Globally Install"
       shell: ${{ inputs.shell }}
       run: |
-        npm install -g .
+        pnpm setup

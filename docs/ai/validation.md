@@ -5,18 +5,20 @@ After writing some implementation you should select the most relevant checks giv
 should we be writing any JavaScript.
 
 ```bash
+pnpm dev
+
 # Compile main source code
-npm run build
+pnpm build
     
 # Run the dev server as a foreground process
-npm run dev
+pnpm dev
 
 # Run lint with automatic fixes - do this first before attempting to fix lint errors via editing  
-npm run lint
+pnpm lint
 
 # Run all tests
-npm run test
+pnpm test
 
 # Run specific tests
-npm run test -- --grep "Name of the test suite or test case"
+pnpm test -- --grep "Name of the test suite or test case"
 ```

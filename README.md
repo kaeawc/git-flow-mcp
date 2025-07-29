@@ -1,4 +1,6 @@
-# xmcp Application
+# git flow MCP server
+
+The goal of the project is to provide git workflow capabilities through MCP tool calls to drive decentralized source code navigation and iteration.,
 
 This project was created with [create-xmcp-app](https://github.com/basementstudio/xmcp).
 

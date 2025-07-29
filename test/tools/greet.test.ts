@@ -5,7 +5,7 @@ describe("greet tool", () => {
   describe("functionality", () => {
     it("should greet a user with a simple name", async () => {
       const result = await greet({ name: "Alice" });
-      
+
       expect(result.content).to.have.lengthOf(1);
       expect(result.content[0]).to.deep.equal({
         type: "text",
@@ -15,7 +15,7 @@ describe("greet tool", () => {
 
     it("should greet a user with a name containing spaces", async () => {
       const result = await greet({ name: "John Doe" });
-      
+
       expect(result.content).to.have.lengthOf(1);
       expect(result.content[0]).to.deep.equal({
         type: "text",
@@ -25,7 +25,7 @@ describe("greet tool", () => {
 
     it("should handle empty string name", async () => {
       const result = await greet({ name: "" });
-      
+
       expect(result.content).to.have.lengthOf(1);
       expect(result.content[0]).to.deep.equal({
         type: "text",
@@ -35,7 +35,7 @@ describe("greet tool", () => {
 
     it("should handle names with special characters", async () => {
       const result = await greet({ name: "José María" });
-      
+
       expect(result.content).to.have.lengthOf(1);
       expect(result.content[0]).to.deep.equal({
         type: "text",
