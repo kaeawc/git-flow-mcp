@@ -1,7 +1,7 @@
 {
   "name": "git-flow-mcp",
   "version": "0.1.0",
-  "description": "An XMCP application with tool syntax",
+  "description": "MCP server providing git workflow capabilities to drive decentralized source code navigation and iteration",
   "engines": {
     "node": ">=20.0.0"
   },

@@ -5,9 +5,6 @@
     }
   },
   "rules": [
-    "This is a Node TypeScript MCP server that uses https://github.com/modelcontextprotocol/typescript-sdk to serve tool calls.",
-    "The goal of the project is to provide git workflow capabilities through MCP tool calls to drive decentralized source code navigation and iteration.,",
-    "Whenever terminal output isn't showing, write output to a file in the scratch directory",
     {
       "filePathMatches": "*",
       "rulesPaths": [
