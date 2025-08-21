@@ -1,6 +1,5 @@
-import { expect, use } from "chai";
+import { expect } from "chai";
 import * as sinon from "sinon";
-import * as sinonChai from "sinon-chai";
 import prepareBranch, { schema, metadata } from "../../src/tools/prepare-branch";
 
 describe("prepare-branch tool", () => {
