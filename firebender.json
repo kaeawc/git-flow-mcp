@@ -1,4 +1,9 @@
 {
+  "backgroundAgent": {
+    "install": "pnpm install",
+    "start": "pnpm dev",
+    "copyFiles": ["roadmap"]
+  },
   "mcpServers": {
     "git-flow-mcp": {
       "url": "http://localhost:3002/mcp"

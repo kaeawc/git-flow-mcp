@@ -1,22 +1,22 @@
 # git flow MCP server
 
-The goal of the project is to provide comprehensive git workflow capabilities through MCP tool calls to drive
-decentralized source code navigation and iteration. A software engineer should be able to provide an environment with
-git global config that uses credentials in ~/.ssh, github or gitlab CLI tools, and basic information about a ticket or
-branch to let an AI agent create or checkout a branch, add work, commit it, push the branch, create a GitHub PR or
-GitLab MR, observe comment or commit status feedback, address the feedback, and work to get the change approved and
-merged.
+The goal of the project is to provide git workflow capabilities through MCP tool calls to drive decentralized source 
+code navigation and iteration. A software engineer should be able to provide an environment with git global config that
+uses credentials in ~/.ssh, github or gitlab CLI tools, and basic information about a ticket or branch to let an AI agent
+create or checkout a branch, add work, commit it, push the branch, create a GitHub PR or GitLab MR, observe comment or commit
+status feedback, address the feedback, and work to get the change approved and merged.
 
-## Features
+### Platform Support
 
-### Phase 1: Core Git Operations
+- **GitHub** - Full integration with GitHub CLI (`gh`)
+- **GitLab** - Complete GitLab support via GitLab CLI (`glab`)
+- **JIRA** - Issue tracking via JIRA CLI (`jira`)
+
+## Tool Calla
 
 - **Branch Management** (`prepare-branch`) - Create, checkout, and sync branches with intelligent handling
 - **Work Synchronization** (`sync-work`) - Advanced branch syncing with conflict resolution strategies
 - **PR/MR Management** (`manage-pr`) - Complete pull request lifecycle across GitHub and GitLab
-
-### Phase 2: Advanced Workflow Automation
-
 - **Issue Tracking Integration** (`track-issues`) - Connect with JIRA, GitHub Issues, GitLab Issues
 - **Status Monitoring** (`monitor-status`) - Monitor PR/MR status, CI/CD pipelines, and feedback
 - **Workflow Orchestration** (`orchestrate-workflow`) - High-level automation for common development patterns
@@ -45,27 +45,6 @@ and labels.
 
 Should analyze current conflicts, apply smart resolution strategies where possible, and provide guided assistance for
 complex conflicts.
-
-## Available Tools
-
-### Core Git Operations
-
-1. **`prepare_branch`** - Create, checkout, or sync branches with automatic handling
-2. **`sync_work`** - Synchronize branches with intelligent conflict resolution
-3. **`manage_pr`** - Complete PR/MR lifecycle management
-
-### Advanced Workflow Tools
-
-4. **`track_issues`** - Issue tracking integration (JIRA, GitHub, GitLab)
-5. **`monitor_status`** - Comprehensive status monitoring (PR, CI, feedback, branch)
-6. **`orchestrate_workflow`** - High-level workflow automation (start-work, complete-feature, hotfix, etc.)
-7. **`resolve_conflicts`** - Advanced conflict resolution with smart strategies
-
-### Platform Support
-
-- **GitHub** - Full integration with GitHub CLI (`gh`)
-- **GitLab** - Complete GitLab support via GitLab CLI (`glab`)
-- **JIRA** - Issue tracking via JIRA CLI (`jira`)
 
 ## Documentation
 
