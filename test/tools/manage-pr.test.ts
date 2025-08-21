@@ -1,7 +1,6 @@
 import { expect } from "chai";
 import { SinonStub, stub, restore } from "sinon";
 import managePR, { schema, metadata } from "../../src/tools/manage-pr";
-import * as managePrModule from "../../src/tools/manage-pr";
 const childProcess = require("child_process");
 
 describe("manage-pr tool", () => {
@@ -95,7 +94,7 @@ describe("manage-pr tool", () => {
       execSyncStub.withArgs("git branch --show-current").returns("feature-branch");
       execSyncStub.withArgs("git push -u origin feature-branch").returns("");
       execSyncStub.withArgs("git log --oneline origin/main..feature-branch").returns("abc123 Add feature");
-      execSyncStub.withArgs('gh pr create --title "Feature: feature branch" --body "## Changes\n\n- abc123 Add feature"').returns("https://github.com/user/repo/pull/1");
+      execSyncStub.withArgs("gh pr create --title \"Feature: feature branch\" --body \"## Changes\n\n- abc123 Add feature\"").returns("https://github.com/user/repo/pull/1");
 
       const result = await managePR({ action: "create" });
 
@@ -108,7 +107,7 @@ describe("manage-pr tool", () => {
       execSyncStub.withArgs("git branch --show-current").returns("feature-branch");
       execSyncStub.withArgs("git push -u origin feature-branch").returns("");
       execSyncStub.withArgs("git log --oneline origin/main..feature-branch").returns("abc123 Add feature");
-      execSyncStub.withArgs('glab mr create --title "Feature: feature branch" --description "## Changes\n\n- abc123 Add feature"').returns("https://gitlab.com/user/repo/-/merge_requests/1");
+      execSyncStub.withArgs("glab mr create --title \"Feature: feature branch\" --description \"## Changes\n\n- abc123 Add feature\"").returns("https://gitlab.com/user/repo/-/merge_requests/1");
 
       const result = await managePR({ action: "create" });
 
@@ -125,7 +124,7 @@ describe("manage-pr tool", () => {
     it("should create PR with custom title and body", async () => {
       execSyncStub.withArgs("git branch --show-current").returns("feature-branch");
       execSyncStub.withArgs("git push -u origin feature-branch").returns("");
-      execSyncStub.withArgs('gh pr create --title "Custom Title" --body "Custom Body"').returns("https://github.com/user/repo/pull/1");
+      execSyncStub.withArgs("gh pr create --title \"Custom Title\" --body \"Custom Body\"").returns("https://github.com/user/repo/pull/1");
 
       const result = await managePR({
         action: "create",
@@ -142,7 +141,7 @@ describe("manage-pr tool", () => {
       execSyncStub.withArgs("git branch --show-current").returns("feature-branch");
       execSyncStub.withArgs("git push -u origin feature-branch").returns("");
       execSyncStub.withArgs("git log --oneline origin/main..feature-branch").returns("abc123 Add feature\ndef456 Fix bug #123");
-      execSyncStub.withArgs('gh pr create --title "Custom Title" --body "## Changes\n\n- abc123 Add feature\n- def456 Fix bug #123\n\n## Related Issues\n\n- #123"').returns("https://github.com/user/repo/pull/1");
+      execSyncStub.withArgs("gh pr create --title \"Custom Title\" --body \"## Changes\n\n- abc123 Add feature\n- def456 Fix bug #123\n\n## Related Issues\n\n- #123\"").returns("https://github.com/user/repo/pull/1");
 
       const result = await managePR({
         action: "create",
@@ -157,7 +156,7 @@ describe("manage-pr tool", () => {
       execSyncStub.withArgs("git branch --show-current").returns("feature-branch");
       execSyncStub.withArgs("git push -u origin feature-branch").returns("");
       execSyncStub.withArgs("git log --oneline origin/main..feature-branch").returns("abc123 Add feature");
-      execSyncStub.withArgs('gh pr create --title "Feature: feature branch" --body "## Changes\n\n- abc123 Add feature" --reviewer alice,bob --label bug,enhancement').returns("https://github.com/user/repo/pull/1");
+      execSyncStub.withArgs("gh pr create --title \"Feature: feature branch\" --body \"## Changes\n\n- abc123 Add feature\" --reviewer alice,bob --label bug,enhancement").returns("https://github.com/user/repo/pull/1");
 
       const result = await managePR({
         action: "create",
@@ -174,7 +173,7 @@ describe("manage-pr tool", () => {
       execSyncStub.withArgs("git branch --show-current").returns("feature-branch");
       execSyncStub.withArgs("git push -u origin feature-branch").throws({ stderr: "Permission denied" });
       execSyncStub.withArgs("git log --oneline origin/main..feature-branch").returns("abc123 Add feature");
-      execSyncStub.withArgs('gh pr create --title "Feature: feature branch" --body "## Changes\n\n- abc123 Add feature"').returns("https://github.com/user/repo/pull/1");
+      execSyncStub.withArgs("gh pr create --title \"Feature: feature branch\" --body \"## Changes\n\n- abc123 Add feature\"").returns("https://github.com/user/repo/pull/1");
 
       const result = await managePR({ action: "create" });
 
@@ -198,7 +197,7 @@ describe("manage-pr tool", () => {
 
     it("should update PR by number", async () => {
       execSyncStub.withArgs("git push origin feature-branch").returns("");
-      execSyncStub.withArgs('gh pr edit 123 --title "Updated Title" --body "Updated Body"').returns("");
+      execSyncStub.withArgs("gh pr edit 123 --title \"Updated Title\" --body \"Updated Body\"").returns("");
 
       const result = await managePR({
         action: "update",
@@ -213,14 +212,14 @@ describe("manage-pr tool", () => {
       expect(result.content[0].text).to.include("Updated PR #123 metadata");
     });
 
-    // Note: The "find and update PR by branch" functionality is covered by the 
+    // Note: The "find and update PR by branch" functionality is covered by the
     // "should update PR by number" test above. The specific edge case of finding
-    // a PR by branch has proven difficult to mock reliably due to complex 
+    // a PR by branch has proven difficult to mock reliably due to complex
     // interaction between execSync stubbing and command execution flow.
     // The core functionality is validated through other test cases.
 
     it("should fail when PR not found for branch", async () => {
-      execSyncStub.withArgs('gh pr list --head feature-branch --json number --jq ".[0].number"').returns("");
+      execSyncStub.withArgs("gh pr list --head feature-branch --json number --jq \".[0].number\"").returns("");
 
       const result = await managePR({
         action: "update",
@@ -232,7 +231,7 @@ describe("manage-pr tool", () => {
 
     it("should fail when neither PR number nor branch provided", async () => {
       execSyncStub.withArgs("git branch --show-current").throws(new Error("Detached HEAD"));
-      
+
       const result = await managePR({
         action: "update"
       });
@@ -248,7 +247,7 @@ describe("manage-pr tool", () => {
 
     it("should submit approve review", async () => {
       execSyncStub.withArgs("git branch --show-current").returns("main");
-      execSyncStub.withArgs('gh pr review 123 --approve --body "LGTM!"').returns("");
+      execSyncStub.withArgs("gh pr review 123 --approve --body \"LGTM!\"").returns("");
 
       const result = await managePR({
         action: "review",
@@ -264,7 +263,7 @@ describe("manage-pr tool", () => {
 
     it("should submit request changes review", async () => {
       execSyncStub.withArgs("git branch --show-current").returns("main");
-      execSyncStub.withArgs('gh pr review 123 --request-changes --body "Needs work"').returns("");
+      execSyncStub.withArgs("gh pr review 123 --request-changes --body \"Needs work\"").returns("");
 
       const result = await managePR({
         action: "review",
@@ -278,7 +277,7 @@ describe("manage-pr tool", () => {
 
     it("should submit comment review", async () => {
       execSyncStub.withArgs("git branch --show-current").returns("main");
-      execSyncStub.withArgs('gh pr review 123 --comment --body "Just a comment"').returns("");
+      execSyncStub.withArgs("gh pr review 123 --comment --body \"Just a comment\"").returns("");
 
       const result = await managePR({
         action: "review",
@@ -292,7 +291,7 @@ describe("manage-pr tool", () => {
 
     it("should fail without PR number", async () => {
       execSyncStub.withArgs("git branch --show-current").returns("main");
-      
+
       const result = await managePR({
         action: "review",
         comment: "Test comment"
@@ -303,7 +302,7 @@ describe("manage-pr tool", () => {
 
     it("should fail without comment", async () => {
       execSyncStub.withArgs("git branch --show-current").returns("main");
-      
+
       const result = await managePR({
         action: "review",
         prNumber: 123
@@ -315,7 +314,7 @@ describe("manage-pr tool", () => {
     it("should handle GitLab review", async () => {
       setupBasicMocks("gitlab");
       execSyncStub.withArgs("git branch --show-current").returns("main");
-      execSyncStub.withArgs('glab mr note 123 --message "LGTM!" && glab mr approve 123').returns("");
+      execSyncStub.withArgs("glab mr note 123 --message \"LGTM!\" && glab mr approve 123").returns("");
 
       const result = await managePR({
         action: "review",
@@ -380,7 +379,7 @@ describe("manage-pr tool", () => {
 
     it("should fail without PR number", async () => {
       execSyncStub.withArgs("git branch --show-current").returns("main");
-      
+
       const result = await managePR({
         action: "merge"
       });
@@ -435,7 +434,7 @@ describe("manage-pr tool", () => {
 
     it("should fail without PR number", async () => {
       execSyncStub.withArgs("git branch --show-current").returns("main");
-      
+
       const result = await managePR({
         action: "close"
       });
@@ -455,7 +454,7 @@ describe("manage-pr tool", () => {
       execSyncStub.withArgs("git log --oneline origin/main..feature-branch").returns(
         "abc123 Fix issue #456\ndef789 Add feature for JIRA-123\nghijk Update docs"
       );
-      execSyncStub.withArgs('gh pr create --title "Feature: feature branch" --body "## Changes\n\n- abc123 Fix issue #456\n- def789 Add feature for JIRA-123\n- ghijk Update docs\n\n## Related Issues\n\n- #456\n- JIRA-123"').returns("https://github.com/user/repo/pull/1");
+      execSyncStub.withArgs("gh pr create --title \"Feature: feature branch\" --body \"## Changes\n\n- abc123 Fix issue #456\n- def789 Add feature for JIRA-123\n- ghijk Update docs\n\n## Related Issues\n\n- #456\n- JIRA-123\"").returns("https://github.com/user/repo/pull/1");
 
       const result = await managePR({
         action: "create",
@@ -469,7 +468,7 @@ describe("manage-pr tool", () => {
       execSyncStub.withArgs("git branch --show-current").returns("feature-branch");
       execSyncStub.withArgs("git push -u origin feature-branch").returns("");
       execSyncStub.withArgs("git log --oneline origin/main..feature-branch").returns("");
-      execSyncStub.withArgs('gh pr create --title "Feature: feature branch" --body "Auto-generated PR description"').returns("https://github.com/user/repo/pull/1");
+      execSyncStub.withArgs("gh pr create --title \"Feature: feature branch\" --body \"Auto-generated PR description\"").returns("https://github.com/user/repo/pull/1");
 
       const result = await managePR({
         action: "create",
@@ -483,7 +482,7 @@ describe("manage-pr tool", () => {
   // Helper function to setup basic mocks for successful operations
   function setupBasicMocks(platform: "github" | "gitlab") {
     execSyncStub.withArgs("git rev-parse --git-dir").returns("/.git");
-    
+
     if (platform === "github") {
       execSyncStub.withArgs("git remote get-url origin").returns("https://github.com/user/repo.git");
       execSyncStub.withArgs("which gh").returns("/usr/bin/gh");
