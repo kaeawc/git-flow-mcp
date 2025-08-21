@@ -29,8 +29,8 @@ export const metadata: ToolMetadata = {
   },
 };
 
-// Helper function to execute commands safely
-function executeCommand(command: string): { stdout: string; success: boolean; error?: string } {
+// Helper function to execute commands safely (exported for testing)
+export function executeCommand(command: string): { stdout: string; success: boolean; error?: string } {
   try {
     const stdout = execSync(command, {
       encoding: "utf8",
