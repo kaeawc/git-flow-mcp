@@ -3,8 +3,6 @@ import * as sinon from "sinon";
 import * as sinonChai from "sinon-chai";
 import prepareBranch, { schema, metadata } from "../../src/tools/prepare-branch";
 
-use(sinonChai);
-
 describe("prepare-branch tool", () => {
   let execSyncStub: sinon.SinonStub;
 
@@ -79,14 +77,14 @@ describe("prepare-branch tool", () => {
       execSyncStub.withArgs("git ls-remote --heads origin develop").returns("abc123 refs/heads/develop");
       execSyncStub.withArgs("git checkout develop").returns("");
       execSyncStub.withArgs("git pull origin develop").returns("");
-      execSyncStub.withArgs("git checkout -b feature-branch").returns("");
+      execSyncStub.withArgs("git checkout -b feature-branch").throws(new Error("some critical git command failed"));
 
       const result = await prepareBranch({
         branch: "feature-branch",
         action: "create"
       });
 
-      // Based on actual behavior - the operation fails due to some unmocked command
+      // The operation should fail due to the git checkout -b command failure
       expect(result.content[0].text).to.include("❌ Failed to create branch");
     });
 
