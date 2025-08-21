@@ -27,6 +27,7 @@ describe("track-issues tool", () => {
   describe("schema validation", () => {
     it("should have correct schema structure", () => {
       expect(schema.action).to.exist;
+      expect(schema.action._def.values).to.include.members(["fetch", "transition", "comment", "link", "create"]);
       expect(schema.issueKey).to.exist;
       expect(schema.branchName).to.exist;
       expect(schema.comment).to.exist;
