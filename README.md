@@ -1,6 +1,23 @@
 # git flow MCP server
 
-The goal of the project is to provide git workflow capabilities through MCP tool calls to drive decentralized source code navigation and iteration.,
+The goal of the project is to provide git workflow capabilities through MCP tool calls to drive decentralized source
+code navigation and iteration. A software engineer should be able to provide an environment with git global config that
+uses credentials in ~/.ssh, github or gitlab CLI tools, and basic information about a ticket or branch to let an AI agent
+create or checkout a branch, add work, commit it, push the branch, create a GitHub PR or GitLab MR, observe comment or commit
+status feedback, address the feedback, and work to get the change approved and merged.
+
+## Prompt Examples:
+
+> Work on JIRA-1234
+
+Should observe whether we need to create or checkout a branch with the JIRA issue number, work on the described task,
+commit changes, push the branch to the origin remote, check whether a remote PR or MR needs to be created, and then
+create or update the remote PR or MR.
+
+> Check my PRs for feedback
+
+Should check open GitHub PRs for unaddressed feedback. This could be in the form of unresolved comment threads or
+commit statuses. Only choose one PR and branch to pull and work and commit changes on at a time.
 
 ## Documentation
 
