@@ -1,13 +1,12 @@
 import { expect } from "chai";
 import { stub, restore } from "sinon";
-import { execSync } from "child_process";
 import orchestrateWorkflow, { schema, metadata } from "../../src/tools/orchestrate-workflow";
 
 describe("orchestrate-workflow tool", () => {
   let execSyncStub: any;
 
   beforeEach(() => {
-    execSyncStub = stub(require('child_process'), 'execSync');
+    execSyncStub = stub(require("child_process"), "execSync");
   });
 
   afterEach(() => {
@@ -253,10 +252,10 @@ describe("orchestrate-workflow tool", () => {
     });
 
     it("should address feedback successfully", async () => {
-      execSyncStub.withArgs(`gh pr list --head feature/test-branch --json number --jq '.[0].number'`).returns("123");
+      execSyncStub.withArgs("gh pr list --head feature/test-branch --json number --jq '.[0].number'").returns("123");
       execSyncStub.withArgs("gh pr view 123 --json comments,reviews").returns("{}");
       execSyncStub.withArgs("git add .").returns("");
-      execSyncStub.withArgs('git commit -m "Address code review feedback"').returns("");
+      execSyncStub.withArgs("git commit -m \"Address code review feedback\"").returns("");
       execSyncStub.withArgs("git push origin feature/test-branch").returns("");
       execSyncStub.withArgs("gh pr comment 123 --body \"Addressed review feedback\"").returns("");
 
@@ -271,7 +270,7 @@ describe("orchestrate-workflow tool", () => {
 
     it("should handle custom commit message", async () => {
       execSyncStub.withArgs("git add .").returns("");
-      execSyncStub.withArgs('git commit -m "Fix validation logic"').returns("");
+      execSyncStub.withArgs("git commit -m \"Fix validation logic\"").returns("");
       execSyncStub.withArgs("git push origin feature/test-branch").returns("");
 
       const result = await orchestrateWorkflow({
@@ -283,9 +282,9 @@ describe("orchestrate-workflow tool", () => {
     });
 
     it("should handle no PR found", async () => {
-      execSyncStub.withArgs(`gh pr list --head feature/test-branch --json number --jq '.[0].number'`).returns("null");
+      execSyncStub.withArgs("gh pr list --head feature/test-branch --json number --jq '.[0].number'").returns("null");
       execSyncStub.withArgs("git add .").returns("");
-      execSyncStub.withArgs('git commit -m "Address code review feedback"').returns("");
+      execSyncStub.withArgs("git commit -m \"Address code review feedback\"").returns("");
       execSyncStub.withArgs("git push origin feature/test-branch").returns("");
 
       const result = await orchestrateWorkflow({
@@ -331,7 +330,7 @@ describe("orchestrate-workflow tool", () => {
       // Mock the status check to return changes (not clean working directory)
       execSyncStub.withArgs("git status --porcelain").returns("M critical-file.js");
       execSyncStub.withArgs("git add .").returns("");
-      execSyncStub.withArgs('git commit -m "Hotfix: URGENT-456"').returns("");
+      execSyncStub.withArgs("git commit -m \"Hotfix: URGENT-456\"").returns("");
       execSyncStub.withArgs("git push -u origin feature/urgent-456").returns("");
 
       const result = await orchestrateWorkflow({
@@ -438,12 +437,12 @@ describe("orchestrate-workflow tool", () => {
       const manyBranches = Array.from({length: 8}, (_, i) => `  feature/old-${i + 1}`).join("\n");
       execSyncStub.withArgs("git fetch --prune").returns("");
       execSyncStub.withArgs("git branch --merged main").returns(manyBranches);
-      
+
       // Only first 5 branches should be deleted
       for (let i = 1; i <= 5; i++) {
         execSyncStub.withArgs(`git branch -d feature/old-${i}`).returns("");
       }
-      
+
       execSyncStub.withArgs("git gc --prune=now").returns("");
       execSyncStub.withArgs("git status --short").returns("");
 
@@ -566,7 +565,7 @@ describe("orchestrate-workflow tool", () => {
 
     it("should show dry run commands for all workflows", async () => {
       const workflows = ["start-work", "complete-feature", "address-feedback", "hotfix", "release-prep", "cleanup"];
-      
+
       for (const workflow of workflows) {
         const result = await orchestrateWorkflow({
           workflow: workflow as any,
