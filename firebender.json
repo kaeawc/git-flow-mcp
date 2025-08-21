@@ -1,8 +1,13 @@
 {
   "backgroundAgent": {
     "install": "pnpm install",
-    "start": "pnpm dev",
-    "copyFiles": ["roadmap"]
+    "start": "pnpm build",
+    "copyFiles": [
+      "roadmap/README.md",
+      "roadmap/bugs/TEMPLATE.md",
+      "roadmap/features/TEMPLATE.md",
+      "roadmap/features/README.md"
+    ]
   },
   "mcpServers": {
     "git-flow-mcp": {
